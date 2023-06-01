@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hyvinkää satunnainen seikkailu kartta</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css"/>
+    <style>
+      #map {
+        height: 500px;
+        width: 100%;
+      }
+    </style>
+  </head>
+<body>
+
+<div id="map"></div>
+<div>
+  <button onclick="generateLocation()" text-align: center>Löydä uusi seikkailu!</button>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+<script>
+    var map = L.map('map').setView([60.63054533927743, 24.859280434957828], 15);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: 'Map data &copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    function generateLocation(){
+        const mapArea = {
+          north: 60.68541808215978,
+          south: 60.55629568705724,
+          east: 25.060850668330268,
+          west: 24.671393015452058,
+        };
+        const lat = Math.random() * (mapArea.north - mapArea.south) + mapArea.south;
+        const lng = Math.random() * (mapArea.east - mapArea.west) + mapArea.west;
+        const newLatLng = new L.LatLng(lat, lng);
+        var marker = L.marker(newLatLng).addTo(map);
+        map.setView(newLatLng, 15);
+    }
+
+</script>
+</body>
+</html>
