@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>OpenStreetMap Example</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+      #map { height: 500px }
+    </style>
+  </head>
+  <body>
+    <h1>OpenStreetMap Example</h1>
+    <div id="map"></div>
+    <button onclick="pickRandomLocation()">Pick Random Location</button>
+    <script>
+      var map = L.map('map').setView([60.63055465367495, 24.859328684954484], 13);
+
+      var baseLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
+        maxZoom: 18,
+      });
+
+      var markers = [
+        [60.66793322225058, 24.88934974130067],  
+        [60.68316227242095, 24.89246304769506],
+        [60.665731488995405, 24.882122291418135],
+        [60.64660453858379, 24.810297370685145],
+		[60.63262570450464, 24.82047861891049],
+		[60.65357690844806, 24.823021140813477],
+		[60.633255225082074, 24.882871356693492],
+		[60.6187681864872, 24.86406452304993],
+      ];
+
+      var markerLayer = L.layerGroup(markers.map(function(marker){
+          return L.marker(marker);
+      }));
+
+      map.addLayer(baseLayer);
+      map.addLayer(markerLayer);
+
+      function pickRandomLocation() {
+        var randomIndex = Math.floor(Math.random() * markers.length);
+        var randomLocation = markers[randomIndex];
+        map.setView(randomLocation, 13);
+      }
+    </script>
+  </body>
+</html>
